@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container" id="authContainer">
+        <div class="panel form-panel">
+            <div class="form-wrapper" id="loginForm">
+                <h2>Sign in</h2>
+                <form action="#">
+                    <div class="input-group">
+                        <label for="login-email">Your email</label>
+                        <input type="email" id="login-email" placeholder="charles@comet.co">
+                    </div>
+                    <div class="input-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="••••••••••">
+                        <a href="#" class="forgot-password">Forget password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </form>
+                <p class="toggle-link">Don't have an account? <a href="#" id="showRegister">Sign up</a></p>
+            </div>
+
+            <div class="form-wrapper" id="registerForm" style="display: none;">
+                <h2>Sign up</h2>
+                <form action="#">
+                    <div class="input-group">
+                        <label for="register-username">Username</label>
+                        <input type="text" id="register-username" placeholder="Choose a username">
+                    </div>
+                    <div class="input-group">
+                        <label for="register-email">Your email</label>
+                        <input type="email" id="register-email" placeholder="Enter your email">
+                    </div>
+                    <div class="input-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" placeholder="Create a password">
+                    </div>
+                     <div class="input-group">
+                        <label for="register-confirm-password">Confirm Password</label>
+                        <input type="password" id="register-confirm-password" placeholder="Confirm your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign up</button>
+                </form>
+                <p class="toggle-link">Already have an account? <a href="#" id="showLogin">Sign in</a></p>
+            </div>
+        </div>
+
+        <div class="panel image-panel">
+            <img src="./assets/imagen.jpg" alt="Imagen decorativa de planetas" id="decorativeImage">
+            <div class="logo-container">
+                <span>comet</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

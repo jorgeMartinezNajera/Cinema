@@ -1,0 +1,187 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #2e2e32; /* Fondo general oscuro */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
+    margin: 0;
+    color: #e0e0e0; /* Color de texto principal */
+}
+
+.auth-container {
+    display: flex;
+    width: 900px; /* Ancho del contenedor principal */
+    height: 550px; /* Alto del contenedor principal */
+    background-color: #3a3b3f; /* Color base del contenedor */
+    border-radius: 20px; /* Bordes redondeados */
+    box-shadow: 12px 12px 24px rgba(0,0,0,0.35), -12px -12px 24px rgba(255,255,255,0.06); /* Efecto neumórfico */
+    overflow: hidden; /* Para que los bordes redondeados afecten a los hijos */
+    transition: all 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Transición para el cambio de layout */
+}
+
+.panel {
+    flex: 1; /* Cada panel ocupa la mitad del espacio */
+    padding: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Centra el contenido del formulario */
+    transition: order 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.5s ease-in-out;
+}
+
+.form-panel {
+    order: 1; /* Por defecto, formulario a la izquierda */
+}
+
+.image-panel {
+    order: 2; /* Por defecto, imagen a la derecha */
+    background-color: #222327; /* Panel derecho más oscuro como en la imagen */
+    text-align: center; /* Centra la imagen si es más pequeña */
+    position: relative; /* Para posicionar el logo */
+}
+
+/* ESTADO ACTIVO PARA REGISTRO: Formulario a la derecha, Imagen a la izquierda */
+.auth-container.register-active .form-panel {
+    order: 2;
+}
+
+.auth-container.register-active .image-panel {
+    order: 1;
+}
+
+/* Estilos de los formularios */
+.form-wrapper {
+    width: 100%;
+    max-width: 350px; /* Ancho máximo del contenido del formulario */
+}
+
+.form-wrapper h2 {
+    margin-bottom: 25px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #f0f0f0;
+    text-align: left;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    position: relative;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    color: #b0b0b0;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 10px;
+    background-color: #44454a;
+    box-shadow: inset 6px 6px 12px rgba(0,0,0,0.25), inset -6px -6px 12px rgba(255,255,255,0.04); /* Efecto neumórfico hundido */
+    color: #e0e0e0;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    outline: none;
+    box-shadow: inset 6px 6px 12px rgba(0,0,0,0.25), inset -6px -6px 12px rgba(255,255,255,0.04), 0 0 0 2px #5a5aff; /* Resalte al enfocar */
+}
+
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 13px;
+    color: #a0a0ff; /* Un azul suave */
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    width: 100%;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background-color: #55599e; /* Color del botón primario */
+    color: #ffffff;
+    box-shadow: 6px 6px 12px rgba(0,0,0,0.25), -6px -6px 12px rgba(255,255,255,0.05); /* Efecto neumórfico elevado */
+}
+
+.btn-primary:hover {
+    background-color: #6065ab;
+    box-shadow: 8px 8px 15px rgba(0,0,0,0.3), -8px -8px 15px rgba(255,255,255,0.07);
+}
+
+.btn-primary:active {
+     background-color: #4c508d;
+     box-shadow: inset 6px 6px 12px rgba(0,0,0,0.25), inset -6px -6px 12px rgba(255,255,255,0.04); /* Efecto hundido al presionar */
+}
+
+.toggle-link {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #b0b0b0;
+    text-align: center;
+}
+
+.toggle-link a {
+    color: #a0a0ff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.toggle-link a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para la sección de la imagen */
+.image-panel img#decorativeImage {
+    max-width: 90%;
+    max-height: 80%;
+    object-fit: contain; /* La imagen se ajusta manteniendo su proporción */
+    border-radius: 10px; /* Si la imagen tiene fondo propio */
+}
+
+.logo-container {
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #707070; /* Color del logo más sutil */
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: lowercase;
+}
+
+/* Para la animación de aparición/desaparición de formularios */
+.form-wrapper {
+    /* ... otros estilos ... */
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.form-wrapper.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none; /* Evita interacción cuando está oculto y transicionando */
+    position: absolute; /* Para que no ocupe espacio al ocultarse */
+}
