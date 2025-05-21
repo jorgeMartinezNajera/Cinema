@@ -7,9 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para cambiar entre formularios con una pequeña animación
     function switchForms(formToShow, formToHide) {
+        const formPanel = formToHide.parentElement;
+
+        // Fijar altura actual para evitar "rebote"
+        const currentHeight = formPanel.offsetHeight;
+        formPanel.style.height = `${currentHeight}px`;
+
         formToHide.classList.add('hidden');
 
-        // Esperar a que termine la transición de salida antes de mostrar el nuevo
         setTimeout(() => {
             formToHide.style.display = 'none'; // Ocultar completamente después de la transición
             formToHide.classList.remove('hidden'); // Limpiar clase para la próxima vez
@@ -18,9 +23,23 @@ document.addEventListener('DOMContentLoaded', () => {
             // Forzar reflujo para que la transición de entrada se aplique
             void formToShow.offsetWidth;
             formToShow.classList.remove('hidden'); // Asegura que no tenga hidden
+
+
+            // Restablecer scroll del formulario interno
+            const scrollableForm = formToShow.querySelector('form');
+            if (scrollableForm) scrollableForm.scrollTop = 0;
+
+
+            // Esperar a que el nuevo formulario esté visible para ajustar altura
+            const newHeight = formToShow.offsetHeight;
+            formPanel.style.height = `${newHeight}px`;
+
+            // Quitar la altura fija después de la transición
+            setTimeout(() => {
+                formPanel.style.height = '';
+            }, 400); // Debe coincidir con la duración de la transición en CSS
         }, 400); // Debe coincidir con la duración de la transición en CSS
     }
-
 
     // Estado inicial: Mostrar formulario de inicio de sesión
     loginFormDisplay.style.display = 'block';

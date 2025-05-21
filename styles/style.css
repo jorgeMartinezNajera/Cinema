@@ -1,3 +1,4 @@
+
 body {
     display: flex;
     justify-content: center;
@@ -173,7 +174,6 @@ body {
 
 /* Para la animación de aparición/desaparición de formularios */
 .form-wrapper {
-    /* ... otros estilos ... */
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
     opacity: 1;
     transform: translateY(0);
@@ -185,3 +185,24 @@ body {
     pointer-events: none; /* Evita interacción cuando está oculto y transicionando */
     position: absolute; /* Para que no ocupe espacio al ocultarse */
 }
+
+/* Scroll personalizado para el contenido del formulario de registro */
+#registerForm form {
+    max-height: 400px; /* Ajusta según el espacio disponible */
+    overflow-y: auto;
+    padding-right: 10px; /* Espacio para la barra de desplazamiento */
+}
+
+#registerForm form::-webkit-scrollbar {
+    width: 8px;
+}
+
+#registerForm form::-webkit-scrollbar-thumb {
+    background-color: #5a5aff;
+    border-radius: 4px;
+}
+
+#registerForm form::-webkit-scrollbar-track {
+    background: transparent;
+}
+
