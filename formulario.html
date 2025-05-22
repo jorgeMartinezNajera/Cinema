@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <div class="auth-container" id="authContainer">
+        <div class="panel form-panel">
+            <div class="form-wrapper" id="loginForm">
+                <h2>Iniciar sesión</h2>
+                <form action="#">
+                    <div class="input-group">
+                        <label for="login-email">Tu nombre de usuario</label>
+                        <input type="email" id="login-email" placeholder="nombre de usuario">
+                    </div>
+                    <div class="input-group">
+                        <label for="login-password">Contraseña</label>
+                        <input type="password" id="login-password" placeholder="••••••••••">
+                        <a href="#" class="forgot-password">Olvidaste tu contraseña</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                </form>
+                <p class="toggle-link">¿Aun no tienes cuenta? <a href="#" id="showRegister">Registrate</a></p>
+            </div>
+
+            <div class="form-wrapper" id="registerForm" style="display: none;">
+                <h2>Registrate</h2>
+                <form action="#">
+                    <div class="input-group">
+                        <label for="register-username">Nombre de usuario</label>
+                        <input type="text" id="register-username" placeholder="Elije un nombre de usuario">
+                    </div>
+                    <div class="input-group">
+                        <label for="register-email">Correo electronico</label>
+                        <input type="email" id="register-email" placeholder="Ingresa tu correo">
+                    </div>
+                    <div class="input-group">
+                        <label for="register-name">Nombre(s)</label>
+                        <input type="text" id="register-name" placeholder="Ingrese su nombre">
+                    </div>
+                    <div class="input-group">
+                        <label for="register-primerapellido">Primer Apellido</label>
+                        <input type="text" id="register-primerapellido" placeholder="Ingrese su primer apellido">
+                    </div>
+                    <div class="input-group">
+                        <label for="register-segundoapellido">Segundo Apellido</label>
+                        <input type="text" id="register-segundoapellido" placeholder="Ingrese su segundo apellido">
+                    </div>
+                    <div class="input-group">
+                        <label for="register-number">Numero Telefonico</label>
+                        <input type="tel" id="register-number" placeholder="Ingrese su numero de telefono">
+                    </div>
+                    <div class="input-group">
+                        <label for="register-password">Contraseña</label>
+                        <input type="password" id="register-password" placeholder="Crea una contraseña">
+                    </div>
+                    <div class="input-group">
+                        <label for="register-confirm-password">Confirma tu contraseña</label>
+                        <input type="password" id="register-confirm-password" placeholder="Confirma tu contraseña">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Registrate</button>
+                </form>
+                <p class="toggle-link">¿Ya tienes cuenta? <a href="#" id="showLogin">Inicia Sesion</a></p>
+            </div>
+        </div>
+
+        <div class="panel image-panel">
+            <img src="./assets/form_image.jpg" alt="Imagen decorativa de planetas" id="decorativeImage">
+            <div class="logo-container">
+                <span>comet</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="./scripts/script.js"></script>
+</body>
+
+</html>
