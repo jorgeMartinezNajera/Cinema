@@ -2,83 +2,720 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario</title>
-    <link rel="stylesheet" href="./styles/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CINETEC</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+
+    html {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+      background-color: #ffffff;
+    }
+
+    body {
+      padding-top: 100px;
+      background-color: #0d0d0d;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      /*padding: 0;*/
+
+    }
+
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      /* encima del auth-panel */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: white;
+      flex-wrap: nowrap;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    #logo {
+      width: 85px;
+      height: auto;
+      flex-shrink: 0;
+    }
+
+    .user-icon {
+      width: 45px;
+      height: 45px;
+      background-color: #5ba1f7;
+      font-size: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      border: 3.5px solid black;
+    }
+
+    .login-link:hover .login-text {
+      color: #e72222;
+    }
+
+    .login-link:hover .user-icon {
+      background-color: #e72222;
+      color: white;
+    }
+
+
+    .login-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      margin-right: 65px;
+      color: black;
+      cursor: pointer;
+    }
+
+    .login-text {
+      font-family: "Orbitron";
+      margin-right: 15px;
+      font-size: 17px;
+      color: black;
+      transition: color 0.3s ease;
+    }
+
+    .auth-panel {
+      position: fixed;
+      top: -80%;
+      left: 0;
+      width: 100%;
+      height: 85%;
+      background: #222;
+      color: white;
+      transition: top 0.5s ease-in-out;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .auth-form {
+      width: 500px;
+      background: #333;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 110px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+
+
+    .auth-form h3 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .auth-form input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      background: #444;
+      border: none;
+      color: white;
+    }
+
+    .auth-form button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+      background: #5ba1f7;
+      border: none;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    .auth-form button:hover {
+      background-color: #e72222;
+      /* rojo */
+      color: white;
+    }
+
+    .auth-form small {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      cursor: pointer;
+      color: #ccc;
+    }
+
+    .auth-form select {
+      width: 100%;
+      padding: 10px;
+      background: #444;
+      border: none;
+      color: white;
+    }
+
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      margin: 20px 0;
+    }
+
+    .carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .poster {
+      min-width: 300px;
+      height: 450px;
+      margin-right: 15px;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      border-radius: 10px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .poster:hover {
+      transform: scale(1.05);
+    }
+
+    .poster-title {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 17px;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .main-carousel {
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .category-section {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .category-carousel {
+      width: 48%;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    /* carrusel principal */
+    .custom-carousel {
+      position: relative;
+      width: 100%;
+      max-height: 450px;
+      overflow: hidden;
+    }
+
+    .carousel-inner {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-item {
+      min-width: 100%;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .carousel-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .carousel-control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .carousel-control.prev {
+      left: 10px;
+    }
+
+    .carousel-control.next {
+      right: 10px;
+    }
+
+
+    /*CINETECH*/
+
+    .cinetech-title {
+      font-family: "Orbitron", sans-serif;
+      font-size: 2.7rem;
+      text-align: center;
+      margin: 0;
+      letter-spacing: 3px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1.2s ease-out forwards;
+      white-space: nowrap;
+
+    }
+
+    .cine {
+      color: #000000;
+    }
+
+    .te {
+      -webkit-text-stroke: 1.5px black;
+      /* borde negro de 1px */
+      text-stroke: 1.5px black;
+      /* para navegadores que soporten */
+      color: orange;
+    }
+
+    .ch {
+      color: #000000;
+    }
+
+    /* Entrada animada */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .user-logged {
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin-right: 65px;
+      gap: 10px;
+    }
+
+    .user-name {
+      font-family: "Orbitron";
+      cursor: pointer;
+      font-weight: bold;
+      color: black;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    .user-logged:hover .user-name {
+      color: #e72222;
+    }
+
+    .user-logged:hover .user-icon {
+      background-color: #e72222;
+      color: white;
+    }
+
+    .user-dropdown {
+      display: none;
+      position: absolute;
+      top: 55px;
+      right: 0;
+      background: white;
+      color: black;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      min-width: 250px;
+      z-index: 100;
+      padding: 10px 0;
+    }
+
+    .user-dropdown a {
+      display: block;
+      padding: 12px 20px;
+      text-decoration: none;
+      color: black;
+      transition: background-color 0.2s;
+    }
+
+    .user-dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+
+    .form-columns {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .form-columns .column {
+      flex: 1 1 45%;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .auth-form label {
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+
+    #paymentMethod {
+      margin-top: 4px;
+    }
+
+    .auth-form label[for="paymentMethod"] {
+      margin-bottom: 0px;
+      /* Espacio justo entre label y el input */
+      margin-top: 10px;
+      /* Espacio mayor respecto al campo anterior (membresía) */
+    }
+
+    .auth-form input#paymentMethod {
+      margin-top: 0;
+      /* Quita espacio innecesario entre el label y el input */
+    }
+  </style>
 </head>
 
 <body>
-    <div class="auth-container" id="authContainer">
-        <div class="panel form-panel">
-            <div class="form-wrapper" id="loginForm">
-                <h2>Iniciar sesión</h2>
-                <form action="#">
-                    <div class="input-group">
-                        <label for="login-email">Tu nombre de usuario</label>
-                        <input type="email" id="login-email" placeholder="nombre de usuario">
-                    </div>
-                    <div class="input-group">
-                        <label for="login-password">Contraseña</label>
-                        <input type="password" id="login-password" placeholder="••••••••••">
-                        <a href="#" class="forgot-password">Olvidaste tu contraseña</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-                </form>
-                <p class="toggle-link">¿Aun no tienes cuenta? <a href="#" id="showRegister">Registrate</a></p>
-            </div>
 
-            <div class="form-wrapper" id="registerForm" style="display: none;">
-                <h2>Registrate</h2>
-                <form action="#">
-                    <div class="input-group">
-                        <label for="register-username">Nombre de usuario</label>
-                        <input type="text" id="register-username" placeholder="Elije un nombre de usuario">
-                    </div>
-                    <div class="input-group">
-                        <label for="register-email">Correo electronico</label>
-                        <input type="email" id="register-email" placeholder="Ingresa tu correo">
-                    </div>
-                    <div class="input-group">
-                        <label for="register-name">Nombre(s)</label>
-                        <input type="text" id="register-name" placeholder="Ingrese su nombre">
-                    </div>
-                    <div class="input-group">
-                        <label for="register-primerapellido">Primer Apellido</label>
-                        <input type="text" id="register-primerapellido" placeholder="Ingrese su primer apellido">
-                    </div>
-                    <div class="input-group">
-                        <label for="register-segundoapellido">Segundo Apellido</label>
-                        <input type="text" id="register-segundoapellido" placeholder="Ingrese su segundo apellido">
-                    </div>
-                    <div class="input-group">
-                        <label for="register-number">Numero Telefonico</label>
-                        <input type="tel" id="register-number" placeholder="Ingrese su numero de telefono">
-                    </div>
-                    <div class="input-group">
-                        <label for="register-password">Contraseña</label>
-                        <input type="password" id="register-password" placeholder="Crea una contraseña">
-                    </div>
-                    <div class="input-group">
-                        <label for="register-confirm-password">Confirma tu contraseña</label>
-                        <input type="password" id="register-confirm-password" placeholder="Confirma tu contraseña">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Registrate</button>
-                </form>
-                <p class="toggle-link">¿Ya tienes cuenta? <a href="#" id="showLogin">Inicia Sesion</a></p>
-            </div>
-        </div>
-
-        <div class="panel image-panel">
-            <img src="./assets/form_image.jpg" alt="Imagen decorativa de planetas" id="decorativeImage">
-            <div class="logo-container">
-                <span>comet</span>
-            </div>
-        </div>
+  <header>
+    <div class="header-left">
+      <img id="logo" src="img/LogoCineFBD.png" alt="Logo CINETEC" />
+      <h1 class="cinetech-title">
+        <strong><span class="cine">Cine</span><span class="te">TEC</span><span class="ch">H</span></strong>
+      </h1>
     </div>
 
-    <script src="./scripts/script.js"></script>
+    <div class="user-menu-container" id="userMenuContainer">
+      <div class="login-link" onclick="toggleAuthPanel()" id="loginLink">
+        <span class="login-text"><strong>Iniciar Sesión</strong></span>
+        <div class="user-icon">👤</div>
+      </div>
+
+
+      <div class="user-logged" id="userLogged" style="display: none;">
+        <span id="userName" class="user-name" onclick="toggleUserDropdown()">Usuario</span>
+        <div class="user-icon" onclick="toggleUserDropdown()">👤</div>
+        <div id="userDropdown" class="user-dropdown">
+          <a href="#" onclick="showHistory('boletos')">Historial de boletos</a>
+          <a href="#" onclick="showHistory('alimentos')">Historial de alimentos</a>
+
+          <a href="#" onclick="logout()">Cerrar sesión</a>
+        </div>
+      </div>
+
+    </div>
+
+
+  </header>
+
+  <div class="auth-panel" id="authPanel">
+    <form class="auth-form" id="authForm">
+      <h3 id="formTitle">Iniciar Sesión</h3>
+      <input type="email" placeholder="Correo" required />
+      <input type="password" placeholder="Contraseña" required />
+      <button type="submit">Entrar</button>
+      <small onclick="toggleAuthMode()">¿No tienes cuenta? Regístrate</small>
+    </form>
+  </div>
+
+  <h2>Tendencias</h2>
+  <div class="custom-carousel" id="customCarousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <a href="pagina1.html"><img src="img/destinoFinalHorizontal.jpg" alt="Póster 1"></a>
+      </div>
+      <div class="carousel-item">
+        <a href="pagina2.html"><img src="img/minecraftHorizontal.jpg" alt="Póster 2"></a>
+      </div>
+      <div class="carousel-item">
+        <a href="pagina3.html"><img src="img/dragonHorizontal.jpg" alt="Póster 3">
+        </a>
+      </div>
+      <div class="carousel-item">
+        <a href="pagina4.html"><img src="img/screamHorizontal.jpg" alt="Póster 4"></a>
+      </div>
+    </div>
+    <button class="carousel-control prev" onclick="prevSlide()">❮</button>
+    <button class="carousel-control next" onclick="nextSlide()">❯</button>
+  </div>
+
+  <div class="category-section">
+    <div class="category-carousel">
+      <h2>Terror</h2>
+      <div class="carousel">
+        <a href="pagina1.html">
+          <div class="poster"
+            style="background-image: url('img/destinoFinalVertical.jpg')">
+          </div>
+          <div class="poster-title">Destino Final: Legado de Sangre</div>
+        </a>
+        <a href="pagina4.html">
+          <div class="poster" style="background-image: url('img/screamVertical.jpg')">
+          </div>
+          <div class="poster-title">Scream VI</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="category-carousel">
+      <h2>Aventura</h2>
+      <div class="carousel">
+        <a href="pagina2.html">
+          <div class="poster"
+            style="background-image: url('img/minecraftVertical.jpg')"></div>
+          <div class="poster-title">Minecraft: La Película</div>
+        </a>
+        <a href="pagina3.html">
+          <div class="poster"
+            style="background-image: url('img/dragonVertical.jpg')">
+          </div>
+          <div class="poster-title">Cómo Entrenar a tu Dragón</div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    const authPanel = document.getElementById("authPanel");
+    const authForm = document.getElementById("authForm");
+    const formTitle = document.getElementById("formTitle");
+
+    let isRegistering = false;
+
+    function toggleAuthPanel() {
+      if (authPanel.style.top === "0%") {
+        authPanel.style.top = "-80%";
+      } else {
+        authPanel.style.top = "0%";
+      }
+    }
+
+    function toggleAuthMode() {
+      isRegistering = !isRegistering;
+      formTitle.innerText = isRegistering ? "Registro" : "Iniciar Sesión";
+
+      if (isRegistering) {
+        authForm.innerHTML = `
+      <h3 id="formTitle">Registro</h3>
+      <div class="form-columns"> 
+        <div class="column">
+      <input type="text" placeholder="Nombre(s)" required />
+      <input type="text" placeholder="Primer apellido" required />
+      <input type="text" placeholder="Segundo apellido" required />
+      <input type="email" placeholder="Correo" required />
+      
+           </div>
+    <div class="column">
+            <input type="password" placeholder="Contraseña" required />
+      <input type="tel" placeholder="Teléfono" pattern="[0-9]{10}" title="Ingresa un número de 10 dígitos" required />
+  
+     
+      <label for="membershipType" style="color:white; font-size:14px;">Tipo de membresía:</label>
+      <select id="membershipType" required>
+        <option value="" disabled selected>Selecciona una opción</option>
+        <option value="basica">Normal</option>
+        <option value="premium">Platino</option>
+        <option value="vip">Diamante</option>
+      </select>
+      <label for="paymentMethod" style="color:white; font-size:14px; margin-bottom: 10px; display: inline-block;">Método de pago (tarjeta):</label>
+<input type="text" id="paymentMethod" placeholder="Número de tarjeta" pattern="[0-9]{16}" title="Número de tarjeta de 16 dígitos" required style="margin-top: 4px;" />
+
+       </div>
+  </div>
+      <button type="submit">Registrarse</button>
+      <small onclick="toggleAuthMode()">
+        ¿Ya tienes una cuenta? Inicia sesión
+      </small>
+    `;
+      } else {
+        authForm.innerHTML = `
+      <h3 id="formTitle">Iniciar Sesión</h3>
+      <input type="email" placeholder="Correo" required />
+      <input type="password" placeholder="Contraseña" required />
+      <button type="submit">Entrar</button>
+      <small onclick="toggleAuthMode()">
+        ¿No tienes cuenta? Regístrate
+      </small>
+    `;
+      }
+    }
+
+
+    /*Carrusel principal*/
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-item');
+    const totalSlides = slides.length;
+
+    function updateCarousel() {
+      const carouselInner = document.querySelector('.carousel-inner');
+      carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+
+    // Auto-play
+    setInterval(() => {
+      nextSlide();
+    }, 4000);
+
+    // menú usuario
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginLink = document.getElementById("loginLink");
+      const userLogged = document.getElementById("userLogged");
+      const userName = document.getElementById("userName");
+
+      // Simular login
+      authForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const inputs = authForm.querySelectorAll("input");
+        const email = inputs[0].value;
+        const name = isRegistering ? inputs[0].value : email.split("@")[0];
+
+        localStorage.setItem("loggedInUser", name);
+        updateUserUI();
+        toggleAuthPanel();
+      });
+
+      // Mostrar/ocultar el menú desplegable
+      window.toggleUserDropdown = function () {
+        const dropdown = document.getElementById("userDropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      }
+
+      // Cerrar sesión
+      window.logout = function () {
+        localStorage.removeItem("loggedInUser");
+        updateUserUI();
+      }
+
+      // Actualiza el UI según el estado de sesión
+      function updateUserUI() {
+        const user = localStorage.getItem("loggedInUser");
+        if (user) {
+          loginLink.style.display = "none";
+          userLogged.style.display = "flex";
+          userName.textContent = user;
+        } else {
+          loginLink.style.display = "flex";
+          userLogged.style.display = "none";
+          userName.textContent = "";
+        }
+      }
+
+      updateUserUI(); // al cargar la página
+    });
+
+
+    // Cierra el menú si se hace clic fuera
+    document.addEventListener("click", function (event) {
+      const dropdown = document.getElementById("userDropdown");
+      const userLogged = document.getElementById("userLogged");
+
+      if (!userLogged.contains(event.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // // Datos simulados del historial (puedes reemplazar con datos reales)
+    const sampleTickets = [
+      { pelicula: "Función: Minecraft: La Película, ", ID_Sala: "Sala 1, ", ID_Boleto: "ID Boleto: 01, ", asiento: "Asiento: A1, ", price: "Precio: $70, ", date: "Fecha: 2025/05/10" },
+      { pelicula: "Función: Scream VI, ", ID_Sala: "Sala 2, ", ID_Boleto: "ID Boleto: 02, ", asiento: "Asiento: A1, ", price: "Precio: $70, ", date: "Fecha: 2025/05/10" },
+    ];
+
+    const sampleSnacks = [
+      { item: "Item: Combo Palomitas + Refresco, ", price: "Precio: $149, ", date: "Fecha: 2025/05/10" },
+      { item: "Item: Hot Dog, ", price: "Precio: $45, ", date: "Fecha: 2025/05/17" },
+    ];
+
+    // Función para mostrar el modal
+    function showHistory(type) {
+      const modal = document.getElementById("historyModal");
+      const title = document.getElementById("modalTitle");
+      const list = document.getElementById("historyList");
+
+      // Definir contenido basado en tipo
+      const data = type === 'boletos' ? sampleTickets : sampleSnacks;
+      title.textContent = `Historial de ${type === 'boletos' ? 'boletos' : 'alimentos'}`;
+
+      // Limpiar y rellenar el listado
+      list.innerHTML = '';
+      data.forEach(entry => {
+        const li = document.createElement("li");
+        li.style.marginBottom = "10px";
+        li.textContent = `${entry.item} - ${entry.price} - ${entry.date}`;
+        list.appendChild(li);
+      });
+
+      modal.style.display = "flex";
+    }
+
+    // Función para cerrar el modal
+    function closeModal() {
+      document.getElementById("historyModal").style.display = "none";
+    }
+
+  </script>
+  <!-- Modal genérico para historial -->
+  <div id="historyModal"
+    style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); z-index:999; justify-content:center; align-items:center;">
+    <div
+      style="background:white; color:black; padding:20px; border-radius:10px; width:80%; max-width:600px; max-height:80vh; overflow-y:auto; position:relative;">
+      <h2 id="modalTitle">Historial</h2>
+      <ul id="historyList" style="list-style:none; padding:0;"></ul>
+      <button onclick="closeModal()"
+        style="margin-top:15px; background-color:#e72222; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Cerrar</button>
+    </div>
+  </div>
+
 </body>
-<!-- hola -->
+
 </html>
