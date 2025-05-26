@@ -435,7 +435,7 @@
 
     <div class="user-menu-container" id="userMenuContainer">
       <div class="login-link" onclick="toggleAuthPanel()" id="loginLink">
-        <span class="login-text"><strong>Iniciar Sesión</strong></span>
+        <span class="login-text"><strong id="sesion">Iniciar Sesión</strong></span>
         <div class="user-icon">👤</div>
       </div>
 
@@ -539,7 +539,7 @@
       formTitle.innerText = isRegistering ? "Registro" : "Iniciar Sesión";
 
       if (isRegistering) {
-        authForm.setAttribute("action", "registrar_cliente.php");
+        authForm.setAttribute("action", "php/registrar_cliente.php");
         authForm.setAttribute("method", "post");
 
         authForm.innerHTML = `
@@ -549,7 +549,7 @@
               <input type="text" name="nombre" placeholder="Nombre(s)" required />
               <input type="text" name="primer_apellido" placeholder="Primer apellido" required />
               <input type="text" name="segundo_apellido" placeholder="Segundo apellido" required />
-              <input type="email" name="correo" placeholder="Correo" required />
+              <input type="email" name="correo" placeholder="Correo"  />
 
             </div>
             <div class="column">
@@ -574,7 +574,7 @@
           </small>
         `;
       } else {
-        authForm.setAttribute("action", "iniciar_sesion.php");
+        authForm.setAttribute("action", "php/iniciar_sesion.php");
         authForm.setAttribute("method", "post");
 
         authForm.innerHTML = `
@@ -588,6 +588,27 @@
         `;
       }
     }
+
+
+    authForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(authForm);
+      const response = await fetch("php/iniciar_sesion.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        document.getElementById("sesion").textContent = "Cerrar Sesion";
+        // Redirigir o mostrar contenido protegido
+      } else {
+        alert("Correo o contraseña incorrectos.");
+      }
+    });
+
 
     /*Carrusel principal*/
     let currentSlide = 0;
@@ -712,4 +733,5 @@
     </div>
   </div>
 </body>
+
 </html>
