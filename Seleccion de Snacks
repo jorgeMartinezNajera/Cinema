@@ -1,0 +1,162 @@
+<!-- Sección de Snacks Integrada -->
+  <div class="snacks-section">
+    <h2 class="snacks-title">SNACKS DE CINE</h2>
+    
+    <div class="snacks-menu">
+      <div class="snack-item">
+        <img src="img/palomitas.jpg" alt="Palomitas">
+        <h3>Palomitas Grandes</h3>
+        <p>$120.00</p>
+        <div class="snack-controls">
+          <button onclick="modificarCantidad('palomitas', -1)">-</button>
+          <span id="cantidad-palomitas">0</span>
+          <button onclick="modificarCantidad('palomitas', 1)">+</button>
+        </div>
+      </div>
+      
+      <div class="snack-item">
+        <img src="img/refresco.jpg" alt="Refresco">
+        <h3>Refresco Grande</h3>
+        <p>$80.00</p>
+        <div class="snack-controls">
+          <button onclick="modificarCantidad('refresco', -1)">-</button>
+          <span id="cantidad-refresco">0</span>
+          <button onclick="modificarCantidad('refresco', 1)">+</button>
+        </div>
+      </div>
+      
+      <div class="snack-item">
+        <img src="img/hotdog.jpg" alt="Hot Dog">
+        <h3>Hot Dog</h3>
+        <p>$90.00</p>
+        <div class="snack-controls">
+          <button onclick="modificarCantidad('hotdog', -1)">-</button>
+          <span id="cantidad-hotdog">0</span>
+          <button onclick="modificarCantidad('hotdog', 1)">+</button>
+        </div>
+      </div>
+      
+      <div class="snack-item">
+        <img src="img/nachos.jpg" alt="Nachos">
+        <h3>Nachos con Queso</h3>
+        <p>$100.00</p>
+        <div class="snack-controls">
+          <button onclick="modificarCantidad('nachos', -1)">-</button>
+          <span id="cantidad-nachos">0</span>
+          <button onclick="modificarCantidad('nachos', 1)">+</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="snack-total">
+      <h3>Total: $<span id="snack-total">0.00</span></h3>
+      <button id="snackFinalizar" onclick="finalizarCompraSnacks()">Finalizar Compra</button>
+    </div>
+    
+    <div id="snackMensaje" class="snack-message">
+      <h3>¡Gracias por tu compra!</h3>
+      <p>Disfruta tus snacks en el cine.</p>
+    </div>
+  </div>
+
+  <script>
+    // Variables globales para el sistema de snacks
+    const preciosSnacks = {
+      palomitas: 120,
+      refresco: 80,
+      hotdog: 90,
+      nachos: 100
+    };
+    
+    const cantidadesSnacks = {
+      palomitas: 0,
+      refresco: 0,
+      hotdog: 0,
+      nachos: 0
+    };
+
+    // Historial de snacks comprados
+    let historialSnacks = [];
+
+    // Función para modificar cantidades de snacks
+    function modificarCantidad(item, cambio) {
+      const nuevaCantidad = cantidadesSnacks[item] + cambio;
+      if (nuevaCantidad >= 0) {
+        cantidadesSnacks[item] = nuevaCantidad;
+        document.getElementById(cantidad-${item}).textContent = nuevaCantidad;
+        calcularTotalSnacks();
+      }
+    }
+
+    // Función para calcular el total de snacks
+    function calcularTotalSnacks() {
+      let total = 0;
+      for (const item in cantidadesSnacks) {
+        total += cantidadesSnacks[item] * preciosSnacks[item];
+      }
+      document.getElementById('snack-total').textContent = total.toFixed(2);
+    }
+
+    // Función para finalizar la compra de snacks
+    function finalizarCompraSnacks() {
+      const user = localStorage.getItem("loggedInUser");
+      if (!user) {
+        alert("Por favor inicia sesión para comprar snacks");
+        toggleAuthPanel();
+        return;
+      }
+
+      // Guardar en el historial
+      const compra = {
+        fecha: new Date().toLocaleDateString(),
+        items: [],
+        total: parseFloat(document.getElementById('snack-total').textContent)
+      };
+
+      for (const item in cantidadesSnacks) {
+        if (cantidadesSnacks[item] > 0) {
+          compra.items.push({
+            nombre: item,
+            cantidad: cantidadesSnacks[item],
+            precio: preciosSnacks[item]
+          });
+        }
+      }
+
+      if (compra.items.length === 0) {
+        alert("No has seleccionado ningún snack");
+        return;
+      }
+
+      // Guardar en el historial
+      historialSnacks.push(compra);
+      localStorage.setItem(historialSnacks_${user}, JSON.stringify(historialSnacks));
+
+      // Mostrar mensaje y limpiar
+      document.getElementById('snackMensaje').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('snackMensaje').style.display = 'none';
+      }, 3000);
+
+      // Resetear cantidades
+      for (const item in cantidadesSnacks) {
+        cantidadesSnacks[item] = 0;
+        document.getElementById(cantidad-${item}).textContent = '0';
+      }
+      calcularTotalSnacks();
+    }
+
+    // Sistema de autenticación y carrusel (mantenido de tu código original)
+    const authPanel = document.getElementById("authPanel");
+    const authForm = document.getElementById("authForm");
+    const formTitle = document.getElementById("formTitle");
+
+    let isRegistering = false;
+
+    function toggleAuthPanel() {
+      if (authPanel.style.top === "0%") {
+        authPanel.style.top = "-80%";
+      } else {
+        authPanel.style.top = "0%";
+      }
+    }
