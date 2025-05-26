@@ -1,0 +1,38 @@
+.seat-map {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.row-label {
+  width: 20px;
+  text-align: center;
+  color: #b0b0b0;
+}
+
+.seat {
+  width: 30px;
+  height: 30px;
+  background-color: #44454a;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.seat:hover {
+  background-color: #5a5aff;
+}
+
+.seat.selected {
+  background-color: #5a5aff;
+  box-shadow: 0 0 0 2px #ffffff33;
+}
+

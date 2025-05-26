@@ -59,3 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         switchForms(loginFormDisplay, registerFormDisplay);
     });
 });
+
+
+
