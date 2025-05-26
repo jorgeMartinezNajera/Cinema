@@ -345,13 +345,13 @@
       font-family: "Orbitron";
       cursor: pointer;
       font-weight: bold;
-      color: black;
+      color: white;
       font-size: 18px;
       transition: color 0.3s ease;
     }
 
     .user-logged:hover .user-name {
-      color: #e72222;
+      color: #5ba1f7;
     }
 
     .user-logged:hover .user-icon {
@@ -450,9 +450,7 @@
           <a href="#" onclick="logout()">Cerrar sesión</a>
         </div>
       </div>
-
     </div>
-
 
   </header>
 
@@ -541,48 +539,53 @@
       formTitle.innerText = isRegistering ? "Registro" : "Iniciar Sesión";
 
       if (isRegistering) {
-        authForm.innerHTML = `
-      <h3 id="formTitle">Registro</h3>
-      <div class="form-columns"> 
-        <div class="column">
-      <input type="text" placeholder="Nombre(s)" required />
-      <input type="text" placeholder="Primer apellido" required />
-      <input type="text" placeholder="Segundo apellido" required />
-      <input type="email" placeholder="Correo" required />
-      
-           </div>
-    <div class="column">
-            <input type="password" placeholder="Contraseña" required />
-      <input type="tel" placeholder="Teléfono" pattern="[0-9]{10}" title="Ingresa un número de 10 dígitos" required />
-  
-     
-      <label for="membershipType" style="color:white; font-size:14px;">Tipo de membresía:</label>
-      <select id="membershipType" required>
-        <option value="" disabled selected>Selecciona una opción</option>
-        <option value="basica">Normal</option>
-        <option value="premium">Platino</option>
-        <option value="vip">Diamante</option>
-      </select>
-      <label for="paymentMethod" style="color:white; font-size:14px; margin-bottom: 10px; display: inline-block;">Método de pago (tarjeta):</label>
-<input type="text" id="paymentMethod" placeholder="Número de tarjeta" pattern="[0-9]{16}" title="Número de tarjeta de 16 dígitos" required style="margin-top: 4px;" />
+        authForm.setAttribute("action", "registrar_cliente.php");
+        authForm.setAttribute("method", "post");
 
-       </div>
-  </div>
-      <button type="submit">Registrarse</button>
-      <small onclick="toggleAuthMode()">
-        ¿Ya tienes una cuenta? <Strong>Inicia sesión</Strong>
-      </small>
-    `;
-      } else {
         authForm.innerHTML = `
-      <h3 id="formTitle">Iniciar Sesión</h3>
-      <input type="email" placeholder="Correo" required />
-      <input type="password" placeholder="Contraseña" required />
-      <button type="submit">Entrar</button>
-      <small onclick="toggleAuthMode()">
-        ¿No tienes cuenta? <Strong>Regístrate</Strong>
-      </small>
-    `;
+        <h3 id="formTitle">Registro</h3>
+          <div class="form-columns">
+            <div class="column">
+              <input type="text" name="nombre" placeholder="Nombre(s)" required />
+              <input type="text" name="primer_apellido" placeholder="Primer apellido" required />
+              <input type="text" name="segundo_apellido" placeholder="Segundo apellido" required />
+              <input type="email" name="correo" placeholder="Correo" required />
+
+            </div>
+            <div class="column">
+              <input type="password" name="contrasenia" placeholder="Contraseña" required />
+              <input type="tel" name="telefono" placeholder="Teléfono" pattern="[0-9]{10}" title="Ingresa un número de 10 dígitos" required />
+
+              <label for="membershipType" style="color:white; font-size:14px;">Tipo de membresía:</label>
+              <select id="membershipType"name="id_membresia" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="1">Normal</option>
+                <option value="2">Platino</option>
+                <option value="3">Diamante</option>
+              </select>
+              <label for="paymentMethod" style="color:white; font-size:14px; margin-bottom: 10px; display: inline-block;">Método de pago (tarjeta):</label>
+              <input type="text" id="paymentMethod" name="metodo_pago" placeholder="Número de tarjeta" pattern="[0-9]{16}" title="Número de tarjeta de 16 dígitos" required style="margin-top: 4px;" />
+
+            </div>
+          </div>
+          <button type="submit">Registrarse</button>
+          <small onclick="toggleAuthMode()">
+            ¿Ya tienes una cuenta? <Strong>Inicia sesión</Strong>
+          </small>
+        `;
+      } else {
+        authForm.setAttribute("action", "iniciar_sesion.php");
+        authForm.setAttribute("method", "post");
+
+        authForm.innerHTML = `
+          <h3 id="formTitle">Iniciar Sesión</h3>
+          <input type="email" name="correo" placeholder="Correo" required />
+          <input type="password" name="contrasenia" placeholder="Contraseña" required />
+          <button type="submit">Entrar</button>
+          <small onclick="toggleAuthMode()">
+          ¿No tienes cuenta? <Strong>Regístrate</Strong>
+          </small>
+        `;
       }
     }
 
@@ -593,7 +596,7 @@
 
     function updateCarousel() {
       const carouselInner = document.querySelector('.carousel-inner');
-      carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+      carouselInner.style.transform = `translateX(-${currentSlide * 100} %)`;
     }
 
     function nextSlide() {
@@ -617,18 +620,6 @@
       const loginLink = document.getElementById("loginLink");
       const userLogged = document.getElementById("userLogged");
       const userName = document.getElementById("userName");
-
-      // Simular login
-      authForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        const inputs = authForm.querySelectorAll("input");
-        const email = inputs[0].value;
-        const name = isRegistering ? inputs[0].value : email.split("@")[0];
-
-        localStorage.setItem("loggedInUser", name);
-        updateUserUI();
-        toggleAuthPanel();
-      });
 
       // Mostrar/ocultar el menú desplegable
       window.toggleUserDropdown = function () {
@@ -689,7 +680,7 @@
 
       // Definir contenido basado en tipo
       const data = type === 'boletos' ? sampleTickets : sampleSnacks;
-      title.textContent = `Historial de ${type === 'boletos' ? 'boletos' : 'alimentos'}`;
+      title.textContent = `Historial de ${type === 'boletos' ? 'boletos' : 'alimentos'} `;
 
       // Limpiar y rellenar el listado
       list.innerHTML = '';
@@ -720,7 +711,5 @@
         style="margin-top:15px; background-color:#e72222; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Cerrar</button>
     </div>
   </div>
-
 </body>
-
 </html>
